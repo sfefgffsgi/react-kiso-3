@@ -35,4 +35,15 @@ test("Login Validation Check", async ({ page }) => {
   await expect(page.locator("#error-message-password")).toBeAttached({
     attached: false,
   });
+
+  // --- ログインに成功するパターン ---
+  // テキストボックスに入力
+  await page.locator(".email-input").fill("sfefgffsgi@example.com");
+  await page.locator(".password-input").fill("test");
+
+  // 「サインイン」押下
+  await page.locator(".login-button").click();
+
+  //ホーム画面に遷移したことを確認
+  await expect(page).toHaveURL("/");
 });

@@ -47,10 +47,10 @@ export const SignUp = () => {
         //ログイン
         setCookie("token", res.data.token);
         dispatch(signIn());
-        // navigate("/");
       })
       .catch((err) => {
-        setErrorMessage(`ユーザー作成に失敗しました。${err}`);
+        setErrorMessage("ユーザー作成に失敗しました。");
+        console.log(err);
       });
   };
 
@@ -71,10 +71,12 @@ export const SignUp = () => {
       })
       .then((res) => {
         console.log(res);
-        // navigate("/");
+        alert("ユーザーを作成しました。");
+        navigate("/");
       })
       .catch((err) => {
-        setErrorMessage(`画像のアップロードに失敗しました。${err}`);
+        setErrorMessage("画像のアップロードに失敗しました。");
+        console.log(err);
       });
   }
 
@@ -108,11 +110,11 @@ export const SignUp = () => {
   };
 
   const handleIconClearButtonClick = () => {
-    const iconInput = document.getElementsByClassName(
-      "icon-input"
-    ) as HTMLCollectionOf<HTMLInputElement>;
+    const iconInput = imgRef.current;
 
-    iconInput[0].value = "";
+    if (iconInput != null) {
+      iconInput.value = "";
+    }
     setIconFile(null);
   };
 

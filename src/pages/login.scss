@@ -7,36 +7,41 @@
 
 .login-form {
   margin: 25px 0;
-  display: flow-root;
+  color: #555555;
+  text-align: left;
 
   label,
   p {
-    float: left;
+    margin-top: 10px;
+    display: inline-block;
   }
-}
 
-.email-label,
-.password-label {
-  color: #555555;
-}
+  .email-label,
+  .password-label {
+    // color: #555555;
+    width: 100%;
+  }
 
-.email-input,
-.password-input {
-  width: 100%;
-  font-size: large;
-  height: 30px;
-  margin-bottom: 10px;
-}
+  .email-input,
+  .password-input {
+    width: 100%;
+    font-size: large;
+    height: 30px;
+  }
 
-.login-button {
-  background-color: #242f9b;
-  color: #ffffff;
-  // width: 100px;
-  height: 40px;
-  border-radius: 5px;
-}
+  .login-button {
+    background-color: #242f9b;
+    color: #ffffff;
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+  }
 
-.error-message {
-  color: #ff3333;
-  margin: 0;
+  .error-message {
+    color: #ff3333;
+    margin: 0;
+  }
 }

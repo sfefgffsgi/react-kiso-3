@@ -7,60 +7,68 @@
 .signup-form {
   margin: 25px 0;
   color: #555555;
-  display: flow-root;
+  text-align: left;
 
   label,
   p {
-    float: left;
+    margin-top: 10px;
+    display: inline-block;
   }
-}
 
-.email-input,
-.name-input,
-.password-input {
-  width: 100%;
-  font-size: large;
-  height: 30px;
-  // margin-bottom: 25px;
-}
-
-.icon-input {
-  width: 100%;
-  float: left;
-  margin-bottom: 10px;
-}
-
-.img-preview-box {
-  border: solid 1px #555555;
-  width: 200px;
-  height: 200px;
-  margin: 15px 0;
-
-  img {
-    object-fit: contain;
+  .name-label,
+  .email-label,
+  .password-label,
+  .name-label {
     width: 100%;
-    height: 100%;
   }
-}
 
-.img-clear-button {
-  float: left;
-  margin: 0 10px;
-  height: 1.5rem;
-  padding: 0 0.5rem;
-  font-weight: 400;
-  border: solid 1px #555555;
-  border-radius: 2px;
-}
+  .email-input,
+  .name-input,
+  .password-input {
+    width: 100%;
+    font-size: large;
+    height: 30px;
+    // margin-bottom: 25px;
+  }
 
-.signup-button {
-  background-color: #242f9b;
-  color: #ffffff;
-  width: 100px;
-  height: 40px;
-  border-radius: 5px;
-}
+  .icon-input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
 
-.error-message {
-  color: #ff3333;
+  .img-preview-box {
+    border: solid 1px #555555;
+    width: 200px;
+    height: 200px;
+
+    img {
+      object-fit: contain;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .img-clear-button {
+    margin: 0 10px;
+    height: 1.5rem;
+    padding: 0 0.5rem;
+    font-weight: 400;
+    border: solid 1px #555555;
+    border-radius: 2px;
+  }
+
+  .signup-button {
+    background-color: #242f9b;
+    color: #ffffff;
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    display: block;
+    margin: auto;
+  }
+
+  .error-message {
+    color: #ff3333;
+    margin-top: 0;
+  }
 }

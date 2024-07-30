@@ -1,0 +1,50 @@
+@charset "utf-8";
+
+.profile {
+  width: 500px;
+  margin: 0 auto;
+}
+.profile-form {
+  margin: 25px 0;
+  color: #555555;
+  text-align: left;
+
+  label,
+  p {
+    margin-top: 10px;
+    display: inline-block;
+
+    width: 100%;
+  }
+
+  .title-input,
+  .url-input,
+  .detail-input {
+    width: 100%;
+    font-size: large;
+    height: 30px;
+  }
+
+  .review-input {
+    resize: none;
+    width: 100%;
+    font-size: large;
+    height: 6rem;
+  }
+
+  .submit-button {
+    background-color: #242f9b;
+    color: #ffffff;
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+  }
+
+  .error-message {
+    color: #ff3333;
+    margin-top: 0;
+  }
+}

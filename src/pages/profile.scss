@@ -1,0 +1,74 @@
+@charset "utf-8";
+
+.profile {
+  width: 500px;
+  margin: 0 auto;
+}
+.profile-form {
+  margin: 25px 0;
+  color: #555555;
+  text-align: left;
+
+  label,
+  p {
+    margin-top: 10px;
+    display: inline-block;
+  }
+
+  .name-label,
+  .email-label,
+  .password-label,
+  .name-label {
+    width: 100%;
+  }
+
+  .email-input,
+  .name-input,
+  .password-input {
+    width: 100%;
+    font-size: large;
+    height: 30px;
+    // margin-bottom: 25px;
+  }
+
+  .icon-input {
+    width: 100%;
+    // margin-bottom: 10px;
+  }
+
+  .img-preview-box {
+    border: solid 1px #555555;
+    width: 200px;
+    height: 200px;
+
+    img {
+      object-fit: contain;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .img-clear-button {
+    margin: 0 10px;
+    height: 1.5rem;
+    padding: 0 0.5rem;
+    font-weight: 400;
+    border: solid 1px #555555;
+    border-radius: 2px;
+  }
+
+  .profile-button {
+    background-color: #242f9b;
+    color: #ffffff;
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    display: block;
+    margin: auto;
+  }
+
+  .error-message {
+    color: #ff3333;
+    margin-top: 0;
+  }
+}

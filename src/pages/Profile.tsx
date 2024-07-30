@@ -1,63 +1,66 @@
 import axios from "axios";
 import Compressor from "compressorjs";
 import { useCookies } from "react-cookie";
-import { Navigate, useNavigate, Link } from "react-router-dom";
-import React, { useRef, useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import React, { useRef, useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { useSelector } from "../store";
 
 import { Header } from "../components/Header";
-import "./signUp.scss";
-import { signIn } from "../authSlice";
+import "./profile.scss";
 import { url } from "../const";
 
 type Inputs = {
   icon: string;
   name: string;
-  email: string;
-  password: string;
+  // email: string;
+  // password: string;
 };
 
-export const SignUp = () => {
-  const auth = useSelector((state) => state.auth.isSignIn);
-  const dispatch = useDispatch();
+export const Profile = () => {
   const navigate = useNavigate();
-  const [, setCookie] = useCookies();
+  const [cookies] = useCookies();
   const {
     register,
     handleSubmit,
     setError,
+    setValue,
     formState: { errors },
   } = useForm<Inputs>();
-  const imgRef = useRef<HTMLInputElement>(null);
+  const imgRef = useRef<HTMLInputElement | null>(null);
   const [iconFile, setIconFile] = useState<Blob | null>(null);
+  const [iconURL, setIconURL] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const { ref, ...rest } = register("icon", {
+    required: "画像を選択してください",
+  });
 
-  const onSignIn: SubmitHandler<Inputs> = (data) => {
+  const updateUser: SubmitHandler<Inputs> = (data) => {
     axios
-      .post(`${url}/users`, {
-        name: data.name,
-        email: data.email,
-        password: data.password,
-      })
+      .put(
+        `${url}/users`,
+        {
+          name: data.name,
+        },
+        {
+          headers: {
+            authorization: `Bearer ${cookies.token}`,
+          },
+        }
+      )
       .then((res) => {
         //画像アップロード
-        uploadIcon(res.data.token);
-        //ログイン
-        setCookie("token", res.data.token);
-        dispatch(signIn());
+        uploadIcon();
       })
       .catch((err) => {
-        setErrorMessage("ユーザー作成に失敗しました。");
+        setErrorMessage("ユーザー情報の更新に失敗しました。");
         console.log(err);
       });
   };
 
-  function uploadIcon(token: string) {
+  function uploadIcon() {
     const headers = {
       "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${cookies.token}`,
     };
 
     const file = new FormData();
@@ -71,7 +74,7 @@ export const SignUp = () => {
       })
       .then((res) => {
         console.log(res);
-        alert("ユーザーを作成しました。");
+        alert("ユーザー情報を更新しました。");
         navigate("/");
       })
       .catch((err) => {
@@ -111,22 +114,41 @@ export const SignUp = () => {
 
   const handleIconClearButtonClick = () => {
     const iconInput = imgRef.current;
-
     if (iconInput != null) {
       iconInput.value = "";
     }
     setIconFile(null);
   };
 
-  if (auth) return <Navigate replace to="/" />;
+  useEffect(() => {
+    axios
+      .get(`${url}/users`, {
+        headers: {
+          authorization: `Bearer ${cookies.token}`,
+        },
+      })
+      .then((res) => {
+        setValue("name", res.data.name);
+        setValue("icon", res.data.iconUrl);
+        // const iconInput = imgRef.current;
+        // if (iconInput != null) {
+        //   iconInput.value = res.data.iconUrl;
+        // }
+        // setIconFile(res.data.iconUrl);
+        setIconURL(res.data.iconUrl);
+      })
+      .catch((err) => {
+        console.log(`ユーザーの取得に失敗しました。${err}`);
+      });
+  }, []);
 
   return (
     <div>
       <Header />
-      <main className="signup">
-        <h2>新規作成</h2>
+      <main className="profile">
+        <h2>ユーザー情報編集</h2>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
-        <form className="signup-form" onSubmit={handleSubmit(onSignIn)}>
+        <form className="profile-form" onSubmit={handleSubmit(updateUser)}>
           <label className="name-label">名前(必須)</label>
           <br />
           <input
@@ -142,45 +164,19 @@ export const SignUp = () => {
             </p>
           )}
           <br />
-          <label className="email-label">メールアドレス(必須)</label>
-          <br />
-          <input
-            type="email"
-            className="email-input"
-            {...register("email", {
-              required: "メールアドレスを入力してください",
-            })}
-          />
-          {errors.email?.message && (
-            <p className="error-message" id="error-message-email">
-              {errors.email?.message}
-            </p>
-          )}
-          <br />
-          <label className="password-label">パスワード(必須)</label>
-          <br />
-          <input
-            type="password"
-            className="password-input"
-            {...register("password", {
-              required: "パスワードを入力してください",
-            })}
-          />
-          {errors.password?.message && (
-            <p className="error-message" id="error-message-password">
-              {errors.password?.message}
-            </p>
-          )}
-          <br />
-          <label className="name-label">アイコン</label>
+          <label className="name-label">アイコン(必須)</label>
           <br />
           <input
             type="file"
             className="icon-input"
             accept="image/png, image/jpeg"
-            {...register("icon", {})}
+            {...rest}
+            name="icon"
+            ref={(e) => {
+              ref(e);
+              imgRef.current = e;
+            }}
             onChange={handleIconInput}
-            ref={imgRef}
           />
           {errors.icon?.message && (
             <p className="error-message" id="error-message-icon">
@@ -198,21 +194,18 @@ export const SignUp = () => {
           </button>
           <br />
           <div className="img-preview-box">
-            {iconFile !== null ? (
-              <img
-                id="img-preview"
-                src={iconFile !== null ? URL.createObjectURL(iconFile) : ""}
-              ></img>
+            {iconURL !== "" ? (
+              <img id="img-preview" src={iconURL}></img>
             ) : (
               <p></p>
             )}
           </div>
           <br />
-          <button type="submit" className="signup-button">
-            作成
+          <button type="submit" className="profile-button">
+            更新
           </button>
         </form>
-        <Link to="/login">ログイン</Link>
+        <Link to="/">Home</Link>
       </main>
     </div>
   );

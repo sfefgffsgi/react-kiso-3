@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -35,6 +39,13 @@ h1 {
   line-height: 1.1;
 }
 
+h2 {
+  font-size: 2em;
+  line-height: 1.1;
+  font-weight: bold;
+  margin: 1rem;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -54,6 +65,10 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+input:not([type="file"]),
+textarea {
+  border: solid 1px #1a1a1a;
+}
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

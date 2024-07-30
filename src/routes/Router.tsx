@@ -5,6 +5,10 @@ import { Home } from "../pages/Home";
 import { NotFound } from "../pages/NotFound";
 import { Login } from "../pages/Login";
 import { SignUp } from "../pages/SignUp";
+import { Profile } from "../pages/Profile";
+import { New } from "../pages/New";
+import { Datail } from "../pages/Datail";
+import { Edit } from "../pages/Edit";
 
 export const Router = () => {
   const auth = useSelector((state) => state.auth.isSignIn);
@@ -16,10 +20,10 @@ export const Router = () => {
         {auth ? (
           <>
             <Route path="/" element={<Home />} />
-            {/* <Route path="/task/new" element={<NewTask />} />
-            <Route path="/list/new" element={<NewList />} />
-            <Route path="/lists/:listId/tasks/:taskId" element={<EditTask />} />
-            <Route path="/lists/:listId/edit" element={<EditList />} /> */}
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/new" element={<New />} />
+            <Route path="/datail/:id" element={<Datail />} />
+            <Route path="/edit/:id" element={<Edit />} />
           </>
         ) : (
           <Route path="/" element={<Navigate replace to="/login" />} />

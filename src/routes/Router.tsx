@@ -7,7 +7,7 @@ import { Login } from "../pages/Login";
 import { SignUp } from "../pages/SignUp";
 import { Profile } from "../pages/Profile";
 import { New } from "../pages/New";
-import { Datail } from "../pages/Datail";
+import { Detail } from "../pages/Detail";
 import { Edit } from "../pages/Edit";
 
 export const Router = () => {
@@ -22,7 +22,7 @@ export const Router = () => {
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/new" element={<New />} />
-            <Route path="/datail/:id" element={<Datail />} />
+            <Route path="/detail/:id" element={<Detail />} />
             <Route path="/edit/:id" element={<Edit />} />
           </>
         ) : (

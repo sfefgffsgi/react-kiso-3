@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import { Navigate, useNavigate, Link } from "react-router-dom";
+import { useParams, Navigate, useNavigate, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
@@ -18,6 +18,7 @@ type Inputs = {
 export const Edit = () => {
   const navigate = useNavigate();
   const [cookies] = useCookies();
+  const { id } = useParams();
   const {
     register,
     handleSubmit,
@@ -29,8 +30,8 @@ export const Edit = () => {
 
   const updateUser: SubmitHandler<Inputs> = (data) => {
     axios
-      .post(
-        `${url}/books`,
+      .put(
+        `${url}/books/${id}`,
         {
           title: data.title,
           url: data.url,
@@ -44,35 +45,54 @@ export const Edit = () => {
         }
       )
       .then((res) => {
-        alert("レビューを作成しました。");
-        navigate("/");
+        alert("レビューを更新しました。");
+        navigate(`/detail/${id}`);
       })
       .catch((err) => {
-        setErrorMessage("レビュー作成に失敗しました。");
+        setErrorMessage("レビューの更新に失敗しました。");
         console.log(err);
       });
   };
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`${url}/users`, {
-  //       headers: {
-  //         authorization: `Bearer ${cookies.token}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       setValue("name", res.data.name);
-  //     })
-  //     .catch((err) => {
-  //       console.log(`データの取得に失敗しました。${err}`);
-  //     });
-  // }, []);
+  function handleDeleteClick() {
+    axios
+      .delete(`${url}/books/${id}`, {
+        headers: {
+          authorization: `Bearer ${cookies.token}`,
+        },
+      })
+      .then((res) => {
+        alert("レビューを削除しました。");
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(`データの削除に失敗しました。${err}`);
+      });
+  }
+
+  useEffect(() => {
+    axios
+      .get(`${url}/books/${id}`, {
+        headers: {
+          authorization: `Bearer ${cookies.token}`,
+        },
+      })
+      .then((res) => {
+        setValue("title", res.data.title);
+        setValue("url", res.data.url);
+        setValue("detail", res.data.detail);
+        setValue("review", res.data.review);
+      })
+      .catch((err) => {
+        console.log(`データの取得に失敗しました。${err}`);
+      });
+  }, []);
 
   return (
     <div>
       <Header />
       <main className="profile">
-        <h2>書籍レビュー登録</h2>
+        <h2>書籍レビュー編集</h2>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
         <form className="profile-form" onSubmit={handleSubmit(updateUser)}>
           <label className="title-label">タイトル(必須)</label>
@@ -125,7 +145,16 @@ export const Edit = () => {
           <button type="submit" className="submit-button">
             更新
           </button>
+          <button
+            type="button"
+            className="bg-red-600 hover:bg-red-700 text-white block m-auto w-24 h-10 mt-1"
+            onClick={handleDeleteClick}
+          >
+            削除
+          </button>
         </form>
+        <Link to={`/detail/${id}`}>Back</Link>
+        <br />
         <Link to="/">Home</Link>
       </main>
     </div>

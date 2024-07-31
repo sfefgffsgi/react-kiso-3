@@ -59,10 +59,16 @@ button {
 }
 button:hover {
   border-color: #646cff;
+  background-color: #646cff;
+  color: #ffffff;
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+main button:disabled {
+  pointer-events: none;
 }
 
 input:not([type="file"]),

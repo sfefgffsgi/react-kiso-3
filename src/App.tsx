@@ -3,7 +3,7 @@ import { Router } from "./routes/Router";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App md:container md:mx-auto">
       <Router />
     </div>
   );

@@ -31,7 +31,7 @@ export const Home = () => {
       <main>
         <h2>書籍一覧</h2>
         <Link to="/new">書籍レビュー作成</Link>
-        <div className="md:container md:mx-auto">
+        <div className="w-96">
           <Books books={books} />
           <Pagination
             offset={offset}
@@ -70,12 +70,15 @@ const Books = (props: propsItems) => {
   }
 
   return (
-    <ul className="m-5 ">
+    <ul className="m-5 border border-solid border-slate-300">
       {books.map((book) => (
-        <li id={book.id}>
+        <li
+          id={book.id}
+          className="border border-solid border-slate-300 hover:bg-indigo-100"
+        >
           <div
             onClick={() => {
-              navigate(`/datail/${book.id}`);
+              navigate(`/detail/${book.id}`);
             }}
           >
             {book.title}

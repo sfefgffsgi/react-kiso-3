@@ -99,8 +99,10 @@ export const Profile = () => {
             message: "ファイルサイズが大きすぎます。",
           });
         }
-        //プレビュー表示
         setIconFile(result);
+        if (result != null) {
+          setIconURL(URL.createObjectURL(result));
+        }
       },
       error(err) {
         console.log(err);
@@ -118,6 +120,7 @@ export const Profile = () => {
       iconInput.value = "";
     }
     setIconFile(null);
+    setIconURL("");
   };
 
   useEffect(() => {

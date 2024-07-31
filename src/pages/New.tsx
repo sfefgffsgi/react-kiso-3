@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import { Navigate, useNavigate, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import { Header } from "../components/Header";
@@ -21,8 +21,6 @@ export const New = () => {
   const {
     register,
     handleSubmit,
-    setError,
-    setValue,
     formState: { errors },
   } = useForm<Inputs>();
   const [errorMessage, setErrorMessage] = useState("");
@@ -52,21 +50,6 @@ export const New = () => {
         console.log(err);
       });
   };
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`${url}/users`, {
-  //       headers: {
-  //         authorization: `Bearer ${cookies.token}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       setValue("name", res.data.name);
-  //     })
-  //     .catch((err) => {
-  //       console.log(`データの取得に失敗しました。${err}`);
-  //     });
-  // }, []);
 
   return (
     <div>
@@ -123,7 +106,7 @@ export const New = () => {
           )}
           <br />
           <button type="submit" className="submit-button">
-            更新
+            登録
           </button>
         </form>
         <Link to="/">Home</Link>

@@ -26,7 +26,7 @@ export const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div key="home">
       <Header />
       <main>
         <h2>書籍一覧</h2>
@@ -73,6 +73,7 @@ const Books = (props: propsItems) => {
     <ul className="m-5 border border-solid border-slate-300">
       {books.map((book) => (
         <li
+          key={book.id}
           id={book.id}
           className="border border-solid border-slate-300 hover:bg-indigo-100"
         >

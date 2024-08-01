@@ -19,7 +19,7 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #5058fe;
   text-decoration: inherit;
 }
 a:hover {
@@ -58,8 +58,8 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
-  background-color: #646cff;
+  border-color: #5058fe;
+  background-color: #5058fe;
   color: #ffffff;
 }
 button:focus,
